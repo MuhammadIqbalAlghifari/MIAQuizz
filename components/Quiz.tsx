@@ -113,24 +113,17 @@ const Quiz = ({ questions, userId }: QuizProps) => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(
-              "Network response was not working fam"
-            );
+            throw new Error("Network response was not ok");
           }
           return response.json();
         })
         .then((data) => {
-          console.log(
-            "Quiz results saved successfully:",
-            data
-          );
+          console.log("Quiz results saved successfully:", data);
         })
         .catch((error) => {
-          console.error(
-            "Error saving quiz results:",
-            error
-          );
-        });
+          console.error("Error saving quiz results:", error);
+          // Handle the error appropriately, e.g., show a message to the user
+        });      
     }
     setChecked(false);
     resetTimer();
