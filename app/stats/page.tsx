@@ -1,7 +1,25 @@
+"use client"
+import { useEffect, useState } from "react";
 import StatCard from "@/components/StatCard";
 import { fetchUsers } from "../(auth)/actions/fetchUsers";
 
-const StatsPage = ({ currentUser }: { currentUser: any }) => {
+const StatsPage = () => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await fetchUsers();
+        setCurrentUser(userData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error state if necessary
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="py-20">
       <div className="text-center mb-10 text-2xl uppercase">
@@ -23,25 +41,6 @@ const StatsPage = ({ currentUser }: { currentUser: any }) => {
       </div>
     </div>
   );
-};
-
-export const getServerSideProps = async () => {
-  try {
-    const currentUser = await fetchUsers();
-
-    return {
-      props: {
-        currentUser,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return {
-      props: {
-        currentUser: null, // Handle error state if necessary
-      },
-    };
-  }
 };
 
 export default StatsPage;
