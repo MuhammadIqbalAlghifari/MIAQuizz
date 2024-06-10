@@ -142,14 +142,14 @@ const Quiz = ({ questions, userId }: QuizProps) => {
         {!showResults ? (
           <>
             <div className="flex justify-between mb-10 items-center">
-              <div className="bg-primary text-white px-4 rounded-md py-1">
+              <div className="bg-blue-600 text-white px-4 rounded-md py-1">
                 <h2>
                   Pertanyaan: {activeQuestion + 1}
                   <span>/{questions.length}</span>
                 </h2>
               </div>
 
-              <div className="bg-primary text-white px-4 rounded-md py-1">
+              <div className="bg-blue-600 text-white px-4 rounded-md py-1">
                 {timeRemaining} detik untuk menjawab
               </div>
             </div>
@@ -166,10 +166,10 @@ const Quiz = ({ questions, userId }: QuizProps) => {
                       onClick={() =>
                         onAnswerSelected(answer, idx)
                       }
-                      className={`cursor-pointer mb-5 py-3 rounded-md hover:bg-primary hover:text-white px-3
+                      className={`cursor-pointer mb-5 py-3 rounded-md hover:bg-blue-600 hover:text-white px-3
                       ${
                         selectedAnswerIndex === idx &&
-                        "bg-primary text-white"
+                        "bg-blue-600 text-white"
                       }
                       `}
                     >

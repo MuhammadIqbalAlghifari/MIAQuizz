@@ -21,7 +21,7 @@ const Navbar = () => {
         </div>
 
         <div className="md:block hidden text-nowrap">
-          <span className="bg-primary px-5 py-1 rounded-md text-white">
+          <span className="bg-blue-600 px-5 py-1 rounded-md text-white">
             Kategori Hari Ini: Javascript
           </span>
         </div>

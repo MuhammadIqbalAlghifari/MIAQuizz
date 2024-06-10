@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import Image from "next/image";
+import Image from "next/image"; 
 import { FaCrown } from "react-icons/fa";
 
 const page = async () => {

@@ -15,7 +15,7 @@ const Hero = () => {
         <div className="mt-6">
           <Link
             href={"/quiz"}
-            className="inline-flex items-center justify-center rounded-md bg-blue-600 px-8 py-3 text-sm font-medium text-gray-50 shadow transition-colors duration-500 hover:bg-primary/80"
+            className="inline-flex items-center justify-center rounded-md bg-blue-600 px-8 py-3 text-sm font-medium text-gray-50 shadow transition-colors duration-500 hover:bg-blue-400/80"
           >
             Kerjakan sekarang
           </Link>
