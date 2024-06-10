@@ -7,17 +7,18 @@ const page = async () => {
     include: { quizResults: true },
   });
 
+  // Adding type annotations for 'a' and 'b'
   users.sort(
-    (a, b) =>
+    (a: { quizResults: { quizScore: number }[] }, b: { quizResults: { quizScore: number }[] }) =>
       b.quizResults.reduce(
-        (acc, curr) => acc + curr.quizScore,
+        (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
         0
       ) -
       a.quizResults.reduce(
-        (acc, curr) => acc + curr.quizScore,
+        (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
         0
-      )
-  );
+  ));
+
   return (
     <div className="max-w-[1500px] mx-auto w-[90%] py-10">
       <h1 className="font-bold mb-4 text-center text-2xl uppercase">
@@ -54,7 +55,7 @@ const page = async () => {
                 <span>
                   Total Nilai Quiz:{" "}
                   {user.quizResults.reduce(
-                    (acc, curr) => acc + curr.quizScore,
+                    (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
                     0
                   )}
                 </span>
