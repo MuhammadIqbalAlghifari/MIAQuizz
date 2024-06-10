@@ -4,17 +4,17 @@ import { fetchUsers } from "../(auth)/actions/fetchUsers";
 
 export const dynamic = "force-dynamic";
 
-async function getData() {
+const getData = async () => {
   const query = `*[_type == "questions"]{
     question,
     answers,
     correctAnswer
-  }`;
+  }*`;
 
   const data = await client.fetch(query);
 
   return data;
-}
+};
 
 const page = async () => {
   const questions = await getData();
