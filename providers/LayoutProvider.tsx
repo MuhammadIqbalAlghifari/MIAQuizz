@@ -48,7 +48,7 @@ function LayoutProvider({
   }, []);
 
   return (
-    <div className="min-h-screen bg-black flex flexCol justify-between">
+    <div className="min-h-screen bg-white flex flexCol justify-between">
       {getNavbar()}
       {getContent()}
       {getFooter()}
