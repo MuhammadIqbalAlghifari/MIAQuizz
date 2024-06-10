@@ -1,16 +1,20 @@
 "use server"
-import {prisma} from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { currentUser } from "@clerk/nextjs/server"
 
 export const fetchUsers = async () => {
   try {
     const clerkUser = await currentUser()
+    console.log("Clerk User:", clerkUser)
+
     let mongoUser = null
     mongoUser = await prisma.user.findUnique({
       where: {
         clerkUserId: clerkUser?.id
       }
     })
+
+    console.log("Mongo User:", mongoUser)
 
     if (!mongoUser) {
       let username = clerkUser?.username
@@ -23,6 +27,8 @@ export const fetchUsers = async () => {
         email: clerkUser?.emailAddresses[0].emailAddress,
         profilePic: clerkUser?.imageUrl
       }
+      console.log("New User:", newUser)
+      
       mongoUser = await prisma.user.create({
         data: newUser
       })
@@ -41,6 +47,6 @@ export const fetchUsers = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    console.log("Error:", error)
   }
 }
