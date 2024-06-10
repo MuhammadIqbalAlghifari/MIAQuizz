@@ -9,7 +9,7 @@ const getData = async () => {
     question,
     answers,
     correctAnswer
-  }*`;
+  }`;
 
   const data = await client.fetch(query);
 
