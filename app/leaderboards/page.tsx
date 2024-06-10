@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image"; 
 import { FaCrown } from "react-icons/fa";
 
+// Define the types for User and QuizResult
 interface QuizResult {
   quizScore: number;
 }
@@ -19,9 +20,9 @@ const page = async () => {
   });
 
   users.sort(
-    (a, b) =>
-      b.quizResults.reduce((acc, curr) => acc + curr.quizScore, 0) -
-      a.quizResults.reduce((acc, curr) => acc + curr.quizScore, 0)
+    (a: User, b: User) =>
+      b.quizResults.reduce((acc: number, curr: QuizResult) => acc + curr.quizScore, 0) -
+      a.quizResults.reduce((acc: number, curr: QuizResult) => acc + curr.quizScore, 0)
   );
 
   return (
@@ -30,7 +31,7 @@ const page = async () => {
         Peringkat 🏆
       </h1>
       <ol>
-        {users.map((user, index) => (
+        {users.map((user: User, index: number) => (
           <li
             key={user.id}
             className={`py-4 ${index < 3 ? "font-bold" : ""}`}
@@ -57,10 +58,7 @@ const page = async () => {
                 </div>
                 <span>
                   Total Nilai Quiz:{" "}
-                  {user.quizResults.reduce(
-                    (acc, curr) => acc + curr.quizScore,
-                    0
-                  )}
+                  {user.quizResults.reduce((acc: number, curr: QuizResult) => acc + curr.quizScore, 0)}
                 </span>
               </div>
             </div>
