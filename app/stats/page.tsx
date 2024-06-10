@@ -1,7 +1,7 @@
 import StatCard from "@/components/StatCard";
 import { fetchUsers } from "../(auth)/actions/fetchUsers";
 
-const Page = ({ currentUser }: { currentUser: any }) => {
+const StatsPage = ({ currentUser }: { currentUser: any }) => {
   return (
     <div className="py-20">
       <div className="text-center mb-10 text-2xl uppercase">
@@ -25,15 +25,23 @@ const Page = ({ currentUser }: { currentUser: any }) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const currentUser = await fetchUsers();
+export const getServerSideProps = async () => {
+  try {
+    const currentUser = await fetchUsers();
 
-  return {
-    props: {
-      currentUser,
-    },
-    revalidate: 60, // optional: regenerate page every 60 seconds
-  };
+    return {
+      props: {
+        currentUser,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      props: {
+        currentUser: null, // Handle error state if necessary
+      },
+    };
+  }
 };
 
-export default Page;
+export default StatsPage;
