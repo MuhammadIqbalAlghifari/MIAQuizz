@@ -2,22 +2,27 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image"; 
 import { FaCrown } from "react-icons/fa";
 
+interface QuizResult {
+  quizScore: number;
+}
+
+interface User {
+  id: string;
+  username: string;
+  profilePic: string;
+  quizResults: QuizResult[];
+}
+
 const page = async () => {
-  const users = await prisma.user.findMany({
+  const users: User[] = await prisma.user.findMany({
     include: { quizResults: true },
   });
 
-  // Adding type annotations for 'a' and 'b'
   users.sort(
-    (a: { quizResults: { quizScore: number }[] }, b: { quizResults: { quizScore: number }[] }) =>
-      b.quizResults.reduce(
-        (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
-        0
-      ) -
-      a.quizResults.reduce(
-        (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
-        0
-  ));
+    (a, b) =>
+      b.quizResults.reduce((acc, curr) => acc + curr.quizScore, 0) -
+      a.quizResults.reduce((acc, curr) => acc + curr.quizScore, 0)
+  );
 
   return (
     <div className="max-w-[1500px] mx-auto w-[90%] py-10">
@@ -28,9 +33,7 @@ const page = async () => {
         {users.map((user, index) => (
           <li
             key={user.id}
-            className={`py-4 ${
-              index < 3 ? "font-bold" : ""
-            }`}
+            className={`py-4 ${index < 3 ? "font-bold" : ""}`}
           >
             <div className="flex items-center gap-5 w-full">
               <div className="flex sm:flex-row flex-col gap-1 justify-between w-full items-center">
@@ -55,7 +58,7 @@ const page = async () => {
                 <span>
                   Total Nilai Quiz:{" "}
                   {user.quizResults.reduce(
-                    (acc: number, curr: { quizScore: number }) => acc + curr.quizScore,
+                    (acc, curr) => acc + curr.quizScore,
                     0
                   )}
                 </span>
